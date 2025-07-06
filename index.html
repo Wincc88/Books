@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,417 @@
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
+    <div class="card-containers">
+
+       <div class="totest">
+           <p>
+            cards can change with their own divs or use container div with only necessary info changing
+           </p>
+
+            <button id="addbookbtn" type="button">Add New Book</button>
+       </div>
+            
+       <div class="manualupload">
+                    
+                    <div class="displaybooks">
+                        
+                    </div>
+
+                    <div class="displaybooks1">
+                        
+                    </div>
+
+                    <div class="displaybooks2">
+                        
+                    </div> 
+
+                    <div class="displaybooks3">
+                        
+                    </div> 
+       </div>
+
+                    <br>
+            
+
+                    <!---- new button pressed, brings this form, fill it put back with addBooktoLibrary()...etc -->
+                    <!--- so it will be removed from here and added using DOM-->
+                    
+                    <div class="formbody">
+
+                        <form name="book-form" form id="bookform">
+
+                                <div class="top">
+                                            
+                                    <h1>Enter Book Details </h1>
+                                    
+                                 </div>
+
+                                        
+                                <div class="bookinfo">
+
+                                                <div class="titleDiv">
+                                                    <br>
+
+                                                    <div>
+                                                        <label for="book-title">Book Title: </label> 
+                                                    
+                                                        <input type="text" name="book-title" id="book-title" required />
+                                                    </div>
+
+                                                </div>
+                                                <br>
+
+                                                <div class="authorDiv">
+                                                    <div>
+                                                        <label for="book-author">Book Author: </label> 
+                                                    
+                                                        <input type="text" name="book-author" id="book-author" required />
+                                                    </div>
+                                                </div>
+                                                <br>
+
+                                                <div class="pagesDiv">
+                                                    <div>
+                                                        <label for="book-pages">Total pages: </label> 
+                                                    
+                                                        <input type="text" name="book-pages" id="book-pages" required />
+                                                    </div>
+                                                </div>
+                                                <br>
+
+                                                <div class="readDiv">
+                                                
+                                                    <div>
+                                                        <label for="book-read">Have you read the book?</label> 
+                                                         
+                                                                <input type="radio" id="read" name="read_type" value="read">
+                                                                <label for="read">Read</label>
+                                                            
+                                                                <input type="radio" id="unread" name="read_type" value="unread" checked>
+                                                                <label for="unread">Not yet read</label>
+                                                              
+                                                    </div>
+                                                
+                                                </div>
+                                
+                                <br>
+                                                <div class="bookidDiv">
+                                                    <div>
+                                                        <label for="book-id">Book ID: </label>
+                                                    
+                                                        <input type="text" name="book-id" id="book-id">
+                                                    </div>                                                            
+                                                
+                                                <br>
+                                                <div>
+                                                <button id="submitbtn" type="submit">Submit</button>
+                                                <button id="closebtn" type="button">Close</button>
+                                                </div>
+                                </div>
+
+
+                                        
+                        </form>
+
+                    </div>
+          
+
+    </div>
+
+    <script>
+
+        const myLibrary = [];
+        let bookstotal = '';
+        const eachDisplay = document.querySelector(".displaybooks");
+        const eachDisplay1 = document.querySelector(".displaybooks1");
+        const eachDisplay2 = document.querySelector(".displaybooks2");
+        const eachDisplay3 = document.querySelector(".displaybooks3");
+        
+
+         function Book(title, author, pages, read, id) {
+            if(!new.target) {
+                throw Error("'new' must be used to call constructor")
+            }
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.read = read;   
+            
+            /**  might use later for book read or unread
+            function() {
+                if(bookisread) {
+                    alert("not yet read");
+                }
+                else {
+                    alert("read");
+                }
+            } **/
+
+            this.id = crypto.randomUUID() + "**";
+            
+            this.info = function() {
+                // alert (`The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}, ${this.id}`);
+                return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}, ${this.id}`;
+            };
+
+          
+         }
+
+         function addBooktoLibrary(title, author, pages, read, id) {
+
+            let tonew = new Book(title, author, pages, read, id);
+            
+            myLibrary.push(tonew);
+
+            return myLibrary;    //return mylibrary instead of tonew to get all array
+
+         }
+            
+            
+            const bookOne = addBooktoLibrary("ajy", "me", 294, "read"); // like player - new player, 1 whole book, 2 whole books
+            console.log(myLibrary);
+            //console.log(bookOne.info());
+
+           
+            const bookTwo = addBooktoLibrary("leveler midst", "see", 94, "read"); // make this with form input ....
+            console.log(myLibrary);                       //...const book3, 4, 5 etc to make new Book(with title, author ...
+                                                     //...pages in form input information to be submitted by user)
+            
+
+             const bookThree = addBooktoLibrary("aoifify", "tererce", 20, "read"); // like player - new player, 1 whole book, 2 whole books
+             console.log(myLibrary);
+
+       const cardContainer = document.querySelector(".card-containers");
+       const formOPen = document.querySelector(".formbody");
+       const addbookbutton = document.querySelector("#addbookbtn");
+       const formid = document.querySelector('#bookform');
+       const submitbutton = document.querySelector("#submitbtn");
+
+
+       // now display in newdivs
+       const testinghere = document.querySelector(".manualupload");
+
+      
+       const newBookDivs = 16;    // Adjust to hold any number of books  
+ 
+        function makeDiv() {
+            
+                
+                for (let i = 0; i < newBookDivs; i++) {
+                
+                        const divsfromForm = document.createElement('div');
+                        divsfromForm.classList.add('divsfromForm');
+
+
+                        // newDiv.textContent = `Div ${i}`;  add form input text inside the div 
+                        const removbook = document.createElement('button');
+                        removbook.textContent = 'Remove book';
+                        removbook.id = 'removebtn';
+
+                        divsfromForm.appendChild(removbook);
+
+                     //   testinghere.appendChild(divsfromForm);
+                    // cardContainer.appendChild(newDiv);
+
+                                    rembook.addEventListener("click", ()=> {
+                                                newDiv.remove();
+                            })
+
+                        
+                }
+            
+        } 
+
+        
+       function openForm() {
+        formOPen.style.display = "block";
+       }     
+
+       addbookbutton.addEventListener("click", openForm);
+
+       
+       function closeForm() {
+        formOPen.style.display = "none";
+         /**
+         for(let i = 0; i < myLibrary.length; i++)       {      
+                
+                bookstotal = bookstotal + `Title: ${myLibrary[i].title}, Author: ${myLibrary[i].author}, 
+                              Pages: ${myLibrary[i].pages}, Read: ${myLibrary[i].read}, BookID:${myLibrary[i].id}` + "}";
+                
+                eachDisplay.textContent = bookstotal; }  **/
+
+                const divsfromForm = document.createElement('div');
+                divsfromForm.classList.add('divsfromForm');
+
+                const removebook = document.createElement('button');
+                removebook.textContent = 'Remove book';
+                removebook.id = 'removebtn';
+
+                // divsfromForm.appendChild(removebook); goes into for loop to work
+
+                 for(let i = 0; i < myLibrary.length; i++) {
+                    
+                    let booktally4 = `Title: ${myLibrary[i].title}, Author: ${myLibrary[i].author}, 
+                              Pages: ${myLibrary[i].pages}, Read: ${myLibrary[i].read}, BookID:${myLibrary[i].id}` + "}";
+
+
+                     divsfromForm.textContent = booktally4;
+                     divsfromForm.appendChild(removebook);
+                    }
+
+                     testinghere.appendChild(divsfromForm);
+                    // cardContainer.appendChild(newDiv);   
+
+                    removebook.addEventListener("click", ()=> {
+                                                divsfromForm.remove();
+                            })
+
+                                  
+       } 
+
+       const closeformbtn = document.querySelector('#closebtn');
+       closeformbtn.addEventListener("click", closeForm);
+
+
+       
+       function validateForm() {
+
+        
+            // get all the inputs within the submitted form
+            let inputs = document.querySelectorAll('input');
+
+            for (let i = 0; i < inputs.length; i++) {
+
+                // only validate the inputs that have the required attribute
+            
+                if(inputs[i].hasAttribute("required")){
+
+
+                    if(inputs[i].value === "" || inputs[i].value === null){
+
+                        // found an empty field that is required
+
+                        alert("Please fill all required fields");
+                        return false;
+                    }
+                   
+                }
+            }
+            return true;
+       }
+
+       // take value from form, put in addtolibrary function
+         const titleinform = document.querySelector('#book-title');  // has to be separate to get value .value 
+         const authorinform = document.querySelector('#book-author');
+         const pagesinform = document.querySelector('#book-pages');
+         const readorunread = document.querySelector('#read'); // need to toggle
+         const idinform = document.querySelector('#book-id');
+ 
+         
+        let titlevalue ;
+        let authorvalue ; 
+        let pagesvalue ; 
+        let readtoggle ;
+        let idvalue ;
+       
+
+       function submitform() { 
+        
+          validateForm(); 
+        
+                // now use this for newdiv inputs 
+                 titlevalue = `${titleinform.value}`;
+                 authorvalue = `${authorinform.value}`; 
+                 pagesvalue = `${pagesinform.value}`;    //use isNaN(pagevlue) to get a number ..alert if not naa
+                 readtoggle = `${readorunread.value}`;
+                 idvalue = `${idinform.value}`;
+
+                console.log(titlevalue);
+                console.log(authorvalue);
+                alert(idvalue);
+      
+
+         //cardContainer.textContent = titlevalue; 
+         const gran = addBooktoLibrary(titlevalue, authorvalue, pagesvalue, readtoggle, idvalue);
+         console.log(gran); 
+
+          
+
+         event.preventDefault();     // click submit will repeat same input until click close
+         document.querySelector("#bookform").reset();
+
+       }
+       submitbutton.addEventListener("click", submitform);
+    
+         
+       
+
+       //document.querySelector("#bookform").reset();
+
+       
+        
+       function loopArrayDisplaybooks() {
+
+           
+              for(let i = 0; i < myLibrary.length; i++)       {      
+                
+
+               // "+" is what is needed to show all iteration, if not, it show the last itertion only
+                bookstotal = bookstotal + `Title: ${myLibrary[i].title}, Author: ${myLibrary[i].author}, 
+                              Pages: ${myLibrary[i].pages}, Read: ${myLibrary[i].read}, BookID:${myLibrary[i].id}` + "}";
+                
+                
+
+                
+                //console.log(bookstotal);  // now show each book at pos[0], [1] e.g bookstotal = myLibrary[0] or myLibrary[1]; ... 
+                //alert(bookstotal); //.. i.e if already appears on page or div, does not appear ....
+                                            //..anymore on page or another div ..see alert and also rock paper scisors 
+               
+                eachDisplay.textContent = bookstotal;
+
+                let booktally1 = `Title: ${myLibrary[0].title}, Author: ${myLibrary[0].author}, 
+                              Pages: ${myLibrary[0].pages}, Read: ${myLibrary[0].read}, BookID:${myLibrary[0].id}` + "}";
+
+                eachDisplay1.textContent = booktally1; 
+
+                let booktally2 = `Title: ${myLibrary[1].title}, Author: ${myLibrary[1].author}, 
+                              Pages: ${myLibrary[1].pages}, Read: ${myLibrary[1].read}, BookID:${myLibrary[1].id}` + "}";
+                
+                eachDisplay2.textContent = booktally2;
+
+                let booktally3 = `Title: ${myLibrary[2].title}, Author: ${myLibrary[2].author}, 
+                              Pages: ${myLibrary[2].pages}, Read: ${myLibrary[2].read}, BookID:${myLibrary[2].id}` + "}";
+
+                 eachDisplay3.textContent = booktally3;
+
+                
+                
+                }; 
+
+              
+                    
+                
+              //  bookstotal = Object.values(myLibrary[0]); // abnormal
+              // const testin = bookstotal.substring(0, bookstotal.indexOf("}")); // good
+
+              /**
+               bookstotal = JSON.stringify(myLibrary);
+    
+               
+               eachDisplay1.textContent = bookstotal;
+
+               
+               bookstotal = JSON.stringify(myLibrary[2]);
+               
+               eachDisplay2.textContent = bookstotal;  
+               **/
+               
+        }
+        loopArrayDisplaybooks();
+
+        
+        
+
+    </script>
     
 </body>
-</html>
