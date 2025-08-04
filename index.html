@@ -9,20 +9,38 @@
 <body>
     <div class="card-containers">
 
-       <div class="totest">
-           <p>
-            cards can change with their own divs or use container div with only necessary info changing
-           </p>
+       <div class="addnewbookdiv">
 
             <button id="addbookbtn" type="button">Add New Book</button>
+
+            <button id="allBooks" type="button">Books Total</button>
+
        </div>
             
        <div class="manualupload">
+
+             
                     
                     <div class="displaybooks">
+
+                            <table id="headingdetails">
+                                    <thead>
+            
+                                      
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+
+                                    
+                            </table>
+ 
+
+
                         
                     </div>
 
+                    <!--- display books in divs, but now using table instead 
                     <div class="displaybooks1">
                         
                     </div>
@@ -34,6 +52,7 @@
                     <div class="displaybooks3">
                         
                     </div> 
+                       -->
        </div>
 
                     <br>
@@ -90,11 +109,11 @@
                                                     <div>
                                                         <label for="book-read">Have you read the book?</label> 
                                                          
-                                                                <input type="radio" id="read" name="read_type" value="read">
-                                                                <label for="read">Read</label>
+                                                                <input type="radio" id="read" name="read_type" value="Read">
+                                                                <label id="changeToUnread" for="read">Read</label>
                                                             
-                                                                <input type="radio" id="unread" name="read_type" value="unread" checked>
-                                                                <label for="unread">Not yet read</label>
+                                                                <input type="radio" id="unread" name="read_type" value="Unread" checked>
+                                                                <label id="changeToRead" for="unread">Unread</label>
                                                               
                                                     </div>
                                                 
@@ -127,12 +146,13 @@
     <script>
 
         const myLibrary = [];
-        let bookstotal = '';
+         //  let bookstotal = '';
         const eachDisplay = document.querySelector(".displaybooks");
+        /**
         const eachDisplay1 = document.querySelector(".displaybooks1");
         const eachDisplay2 = document.querySelector(".displaybooks2");
         const eachDisplay3 = document.querySelector(".displaybooks3");
-        
+        **/
 
          function Book(title, author, pages, read, id) {
             if(!new.target) {
@@ -141,17 +161,7 @@
             this.title = title;
             this.author = author;
             this.pages = pages;
-            this.read = read;   
-            
-            /**  might use later for book read or unread
-            function() {
-                if(bookisread) {
-                    alert("not yet read");
-                }
-                else {
-                    alert("read");
-                }
-            } **/
+            this.read = read;    
 
             this.id = crypto.randomUUID() + "**";
             
@@ -162,20 +172,32 @@
 
           
          }
+ 
+         
+
+         //  Book.prototype.readStatus = function () { }
+         // this.read status of readtoggle needs to be updated  with prototype function.. later  
+         
+            /**  testing
+             const book = new Book('res', 'lidg', '789', '77447');
+             console.log(book.title); **/
+            
 
          function addBooktoLibrary(title, author, pages, read, id) {
 
-            let tonew = new Book(title, author, pages, read, id);
+           let tonew = new Book(title, author, pages, read, id);
             
             myLibrary.push(tonew);
 
             return myLibrary;    //return mylibrary instead of tonew to get all array
 
          }
-            
-            
+            /** rough working code
+            // manually test for bookOne, bookTwo, and bookThree
+
             const bookOne = addBooktoLibrary("ajy", "me", 294, "read"); // like player - new player, 1 whole book, 2 whole books
             console.log(myLibrary);
+            
             //console.log(bookOne.info());
 
            
@@ -186,6 +208,8 @@
 
              const bookThree = addBooktoLibrary("aoifify", "tererce", 20, "read"); // like player - new player, 1 whole book, 2 whole books
              console.log(myLibrary);
+             **/
+
 
        const cardContainer = document.querySelector(".card-containers");
        const formOPen = document.querySelector(".formbody");
@@ -197,37 +221,7 @@
        // now display in newdivs
        const testinghere = document.querySelector(".manualupload");
 
-      
-       const newBookDivs = 16;    // Adjust to hold any number of books  
- 
-        function makeDiv() {
-            
-                
-                for (let i = 0; i < newBookDivs; i++) {
-                
-                        const divsfromForm = document.createElement('div');
-                        divsfromForm.classList.add('divsfromForm');
-
-
-                        // newDiv.textContent = `Div ${i}`;  add form input text inside the div 
-                        const removbook = document.createElement('button');
-                        removbook.textContent = 'Remove book';
-                        removbook.id = 'removebtn';
-
-                        divsfromForm.appendChild(removbook);
-
-                     //   testinghere.appendChild(divsfromForm);
-                    // cardContainer.appendChild(newDiv);
-
-                                    rembook.addEventListener("click", ()=> {
-                                                newDiv.remove();
-                            })
-
-                        
-                }
-            
-        } 
-
+     
         
        function openForm() {
         formOPen.style.display = "block";
@@ -235,48 +229,164 @@
 
        addbookbutton.addEventListener("click", openForm);
 
-       
+ 
+      Book.prototype.changeReadUnread = function(cell) {
+            const readValue = document.querySelector('#read').value;
+            const unreadValue = document.querySelector('#unread').value;
+            if (cell.textContent === readValue) {
+                cell.textContent = unreadValue;
+                this.read = unreadValue;
+            } else if (cell.textContent === unreadValue) {
+                cell.textContent = readValue;
+                this.read = readValue;
+            }
+      };
+
+
        function closeForm() {
+
+
         formOPen.style.display = "none";
-         /**
-         for(let i = 0; i < myLibrary.length; i++)       {      
-                
-                bookstotal = bookstotal + `Title: ${myLibrary[i].title}, Author: ${myLibrary[i].author}, 
-                              Pages: ${myLibrary[i].pages}, Read: ${myLibrary[i].read}, BookID:${myLibrary[i].id}` + "}";
-                
-                eachDisplay.textContent = bookstotal; }  **/
+       
 
                 const divsfromForm = document.createElement('div');
                 divsfromForm.classList.add('divsfromForm');
 
                 const removebook = document.createElement('button');
                 removebook.textContent = 'Remove book';
-                removebook.id = 'removebtn';
+                removebook.id = 'removebtn';   
 
-                // divsfromForm.appendChild(removebook); goes into for loop to work
+                const toggleReadUnread = document.createElement('button');
+                toggleReadUnread.textContent = 'Toggle';
+                toggleReadUnread.id = 'togglebtn';
 
-                 for(let i = 0; i < myLibrary.length; i++) {
+
+                   // Create a table element inside the div created
+                const tableInside = document.createElement('table');
+                tableInside.id = 'tableInsideid';
+
+                   // Create a table header (thead) element
+                const thead = document.createElement('thead');
+
+                  // create table row (tr) element
+                const headerRow = document.createElement('tr'); 
+
+                const headerNames = ['Title', 'Author', 'Pages', 'Read', 'Book-Id'];
+
+                headerNames.forEach(headerText => {
+
+                      // create <th> element
+                    const theader = document.createElement('th');
+
+                     
+                    theader.textContent = headerText;
+
+                      // add <th> to row 
+                    headerRow.appendChild(theader);
+                });
+
+                    // Append tr(row) to thead
+                thead.appendChild(headerRow);
+
+                    // Append thead to table
+                tableInside.appendChild(thead);
+
+                    //Append table to container 
+                divsfromForm.appendChild(tableInside);  
+
+                
+
+                   // variable to hold every last book entered in form
+                const lastBookEntered = myLibrary[myLibrary.length -1];
+                   // console.log(lastBookEntered);
+                   
+                   // create <tr> element for book details
+                const bookRow = document.createElement('tr'); 
+
+                // variable to hold book properties, here it is the keys we want
+                const bookProperties =  ['title',  'author', 'pages', 'read', 'id']; 
+                
+               // console.log(lastBookEntered.read);
+
+                for(i = 0; i < bookProperties.length; i++) {
+
+                    //create new data cells for values to be gotten from the key;values pair
+                     const cell = document.createElement('td');
+                     //  console.log(cell);
+                     
+                     // lastBookEntered with corresponding bookProperties position @ [i] and text information inside
+                    cell.textContent = lastBookEntered[bookProperties[i]];
+                    // console.log(cell.textContent);
+                    // console.log(lastBookEntered.read);
+                      
+
+                     //add cell to row -- bookRow
+                    bookRow.appendChild(cell);
+                      
+                    // toggle function works inside with cell.textContent defined above and used here
+                    // ... but we want to attach toggle to only the read cell...cell.textContent shows all cells(td)
+
+                     if (bookProperties[i] === 'read') { 
+                        toggleReadUnread.addEventListener("click", function() {
+                            lastBookEntered.changeReadUnread(cell);
+                         });
+                        
+                      }
+                        
                     
-                    let booktally4 = `Title: ${myLibrary[i].title}, Author: ${myLibrary[i].author}, 
-                              Pages: ${myLibrary[i].pages}, Read: ${myLibrary[i].read}, BookID:${myLibrary[i].id}` + "}";
+                        
+                       
+                } 
+ 
+                    // append row to table
+                tableInside.appendChild(bookRow); 
+ 
+                divsfromForm.appendChild(removebook);
+                
+                divsfromForm.appendChild(toggleReadUnread);
 
-
-                     divsfromForm.textContent = booktally4;
-                     divsfromForm.appendChild(removebook);
-                    }
-
-                     testinghere.appendChild(divsfromForm);
+                   // append table to div
+                testinghere.appendChild(divsfromForm);
                     // cardContainer.appendChild(newDiv);   
+               
+                    
+                    
 
-                    removebook.addEventListener("click", ()=> {
-                                                divsfromForm.remove();
-                            })
+                    // remove book with a click
+                removebook.addEventListener("click", ()=> {
 
-                                  
+                    divsfromForm.remove();
+                    
+                  //  console.log(myLibrary);
+                    myLibrary.pop();           // good
+                  //  console.log(myLibrary);   // good
+                });
+       
+
+                  // after append everrything, we want to update the main table with the lastBookEntered read cell only
+                  // toggle will need to be atached again 
+                toggleReadUnread.addEventListener("click", function() {
+
+                    // Update the read cell in the main table if it exists
+                    const tableBody = document.querySelector("#headingdetails tbody");
+
+                    // Find the row with the same id as book entered
+                    // Assuming lastBookEntered.id is unique and corresponds to the Book-Id cell in the table
+                    // We will find the row in the table body that matches the lastBookEntered.id
+                    const rows = tableBody.querySelectorAll("tr");
+                    for (let row of rows) {
+                        // Assuming Book-Id is the 5th cell (index 4)
+                        if (row.cells[4] && row.cells[4].textContent === lastBookEntered.id) {
+                            // Update the read cell (index 3)
+                            row.cells[3].textContent = lastBookEntered.read;
+                        }
+                    }
+                });
+                             
        } 
-
+      
        const closeformbtn = document.querySelector('#closebtn');
-       closeformbtn.addEventListener("click", closeForm);
+       closeformbtn.addEventListener("click", closeForm); 
 
 
        
@@ -298,6 +408,7 @@
                         // found an empty field that is required
 
                         alert("Please fill all required fields");
+                        inputs[i].focus();
                         return false;
                     }
                    
@@ -310,70 +421,177 @@
          const titleinform = document.querySelector('#book-title');  // has to be separate to get value .value 
          const authorinform = document.querySelector('#book-author');
          const pagesinform = document.querySelector('#book-pages');
-         const readorunread = document.querySelector('#read'); // need to toggle
+         const bookIsUnRead = document.querySelector('#unread');
+         const readorunread = document.querySelector('#read'); 
          const idinform = document.querySelector('#book-id');
  
-         
-        let titlevalue ;
-        let authorvalue ; 
-        let pagesvalue ; 
-        let readtoggle ;
-        let idvalue ;
        
+         let titlevalue;
+         let authorvalue;
+         let pagesvalue;
+         let readtoggle;
+         let idvalue;
 
        function submitform() { 
+
+         event.preventDefault();     // click submit will repeat same input until click close
         
-          validateForm(); 
+         if (!validateForm()) {
+            return; // stop form submission if validation fails
+         }
         
                 // now use this for newdiv inputs 
                  titlevalue = `${titleinform.value}`;
                  authorvalue = `${authorinform.value}`; 
-                 pagesvalue = `${pagesinform.value}`;    //use isNaN(pagevlue) to get a number ..alert if not naa
-                 readtoggle = `${readorunread.value}`;
+                 pagesvalue = pagesinform.value;    //use isNaN(pagevlue) to get a number if needed
+                     
+                    // Ensure pages is a number and prompt until valid
+                    let pagesInput = pagesinform.value.trim();
+                    while (isNaN(Number(pagesInput)) || pagesInput === "") {
+                        pagesInput = prompt("Please enter a valid number for pages:");
+                        if (pagesInput === null) return; // User cancelled
+                    }
+                 // Convert pagesInput to a number
+                 pagesvalue = Number(pagesInput);
+
+                 if (bookIsUnRead.checked) {
+                     readtoggle = `${bookIsUnRead.value}`;
+                 }
+                 else if (readorunread.checked) {
+                    readtoggle = `${readorunread.value}`;
+              }
+
                  idvalue = `${idinform.value}`;
 
-                console.log(titlevalue);
-                console.log(authorvalue);
-                alert(idvalue);
-      
+               // console.log(titlevalue);
+              //  console.log(authorvalue);
+              //  alert(idvalue);
 
          //cardContainer.textContent = titlevalue; 
-         const gran = addBooktoLibrary(titlevalue, authorvalue, pagesvalue, readtoggle, idvalue);
-         console.log(gran); 
+          addBooktoLibrary(title = titlevalue, author = authorvalue, pages = pagesvalue, read = readtoggle, id = idvalue);
+        // addBooktoLibrary(titlevalue, authorvalue, pagesvalue, readtoggle, idvalue); // correct and done here
+           console.log(myLibrary); // should be inside and not outside..shows all current books in library
+          
 
           
 
-         event.preventDefault();     // click submit will repeat same input until click close
+         
          document.querySelector("#bookform").reset();
 
        }
        submitbutton.addEventListener("click", submitform);
-    
+
+
+
+        function displayTable() {
+            
+            eachDisplay.style.display = "block"; // show the displaybooks div
+            
+                //table to be added into
+            const tableHeader = document.querySelector("#headingdetails thead"); 
+
+                // avoid duplicate table headers by initializing it to an empty string to be added into only once
+            tableHeader.textContent = '';
+
+                // create row for table
+            const headerRow = document.createElement('tr'); 
+            
+            
+               // header names            
+            const headerNames = ['Title', 'Author', 'Pages', 'Read', 'Book-Id'];
+
+                    headerNames.forEach(headerText => {
+
+                        // create <th> element for row
+                        const theader = document.createElement('th');
+
+                        theader.textContent = headerText;
+
+                        // add <th> element to row
+                        headerRow.appendChild(theader);                   
+
+                    }); 
+
+                    tableHeader.appendChild(headerRow);
+                    
+           
          
-       
+              // <tbody> table to add rows into
+            const tableBody = document.querySelector("#headingdetails tbody"); 
+                  
+                 // avoid duplicate tbody rows by initializing it to an empty string to be added into 
+             tableBody.textContent = '';  
+            
+                // cycle through the array for books in the library
+              for (let i = 0; i < myLibrary.length; i++) {
 
-       //document.querySelector("#bookform").reset();
+                
+                  //keep reference to each book object 
+                const eachBookInLibrary = myLibrary[i]; //mylibrary[i] - each book now defined
+                 // console.log(eachBookInLibrary); // shows each book object and their properties currently in the library
+
+            
+                  //create row element for each book to append cells into  
+                 const rowIntbody = document.createElement('tr');
+                  // console.log(rowIntbody);
+
+                  // properties of library array elements
+                 const mylibraryProperties = ['title', 'author', 'pages', 'read', 'id'];
+                  // console.log(mylibraryProperties);
+
+
+                 //append each property to the row in question, in order 
+                 for(j = 0; j < mylibraryProperties.length; j++) {
+
+
+                      //create new data cells <td> for values 
+                    const cell = document.createElement('td');
+                     //  console.log(cell);
+                   
+                     //set values of properties using bracket notation mylibraryProperties[j] is a string,
+                     // and can be used to access eachBookLibrary properties
+                    cell.textContent = eachBookInLibrary[mylibraryProperties[j]];
+                     //  console.log(cell.textContent);
+                     
+                     //add cell to row in <tbody>
+                    rowIntbody.appendChild(cell);
+                 }
+                   //add new row to <tbody>
+                  tableBody.appendChild(rowIntbody);
+
+                // eachDisplay.appendChild(tableBody); // better formatting when removed
+
+               }
+
+       }
+        const displaybtn = document.querySelector('#allBooks');
+        displaybtn.addEventListener("click", displayTable);
 
        
-        
+       /**  rough working code
+        // display books in array using loop, but only shows last book in array
+        // loop through the array and display each book in a div
+        // this is not needed anymore, as we have the table to display all books
+
        function loopArrayDisplaybooks() {
 
            
               for(let i = 0; i < myLibrary.length; i++)       {      
                 
-
                // "+" is what is needed to show all iteration, if not, it show the last itertion only
-                bookstotal = bookstotal + `Title: ${myLibrary[i].title}, Author: ${myLibrary[i].author}, 
-                              Pages: ${myLibrary[i].pages}, Read: ${myLibrary[i].read}, BookID:${myLibrary[i].id}` + "}";
-                
+                bookstotal = bookstotal + `book ${i + 1}: Title: ${myLibrary[i].title}, Author: ${myLibrary[i].author}, 
+                              Pages: ${myLibrary[i].pages}, Read: ${myLibrary[i].read}, BookID:${myLibrary[i].id}` +"}";
                 
 
                 
                 //console.log(bookstotal);  // now show each book at pos[0], [1] e.g bookstotal = myLibrary[0] or myLibrary[1]; ... 
                 //alert(bookstotal); //.. i.e if already appears on page or div, does not appear ....
                                             //..anymore on page or another div ..see alert and also rock paper scisors 
+
+             
+                            
                
-                eachDisplay.textContent = bookstotal;
+              //  eachDisplay.textContent = bookstotal;
 
                 let booktally1 = `Title: ${myLibrary[0].title}, Author: ${myLibrary[0].author}, 
                               Pages: ${myLibrary[0].pages}, Read: ${myLibrary[0].read}, BookID:${myLibrary[0].id}` + "}";
@@ -388,7 +606,8 @@
                 let booktally3 = `Title: ${myLibrary[2].title}, Author: ${myLibrary[2].author}, 
                               Pages: ${myLibrary[2].pages}, Read: ${myLibrary[2].read}, BookID:${myLibrary[2].id}` + "}";
 
-                 eachDisplay3.textContent = booktally3;
+         
+                eachDisplay3.textContent = booktally3;
 
                 
                 
@@ -400,20 +619,21 @@
               //  bookstotal = Object.values(myLibrary[0]); // abnormal
               // const testin = bookstotal.substring(0, bookstotal.indexOf("}")); // good
 
-              /**
-               bookstotal = JSON.stringify(myLibrary);
+              
+             //  bookstotal = JSON.stringify(myLibrary);
     
                
-               eachDisplay1.textContent = bookstotal;
+             //  eachDisplay1.textContent = bookstotal;
 
                
-               bookstotal = JSON.stringify(myLibrary[2]);
+              // bookstotal = JSON.stringify(myLibrary[2]);
                
-               eachDisplay2.textContent = bookstotal;  
-               **/
+             //  eachDisplay2.textContent = bookstotal;  
                
-        }
+               
+        } 
         loopArrayDisplaybooks();
+        **/
 
         
         
