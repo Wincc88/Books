@@ -208,6 +208,7 @@ th, td, tr {
         grid-template-columns: 1fr;
         width: 100%;
         margin: 0 auto;
+        overflow-x: scroll;
     }
     
     .addnewbookdiv {
