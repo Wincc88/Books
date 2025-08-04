@@ -212,8 +212,12 @@ th, td, tr {
         grid-template-columns: 1fr;
     }
     
-    #addbookbtn, #allBooks {
-        width: 100%;
+    #addbookbtn  {
+        width: 60%;
+        margin-top: 10px;
+    }
+    #allBooks {
+        width: 400%;
         margin-top: 10px;
     }
     
