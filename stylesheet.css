@@ -225,7 +225,13 @@ th, td, tr {
     }
     
     .manualupload {
-        grid-template-columns: 1fr;
+       /** grid-template-columns: 1fr; **/
+        display: grid;
+        grid-template-columns: minmax(200px, 1fr);
+        grid-auto-rows: minmax(230px, auto);
+        margin-top: 5px;
+        gap: 20px;
+        background-color:  rgb(222, 234, 244);;
     }
     
     .formbody {
