@@ -201,3 +201,28 @@ th, td, tr {
   padding: 0.5rem;
   text-align: center;
 }
+
+
+@media screen and (max-width: 600px) {
+    .card-containers {
+        grid-template-columns: 1fr;
+    }
+    
+    .addnewbookdiv {
+        grid-template-columns: 1fr;
+    }
+    
+    #addbookbtn, #allBooks {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .manualupload {
+        grid-template-columns: 1fr;
+    }
+    
+    .formbody {
+        width: 90%;
+        right: 5%;
+    }
+}
