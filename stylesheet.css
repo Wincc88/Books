@@ -216,13 +216,13 @@ th, td, tr {
     }
     
     #addbookbtn  {
-        width: 60%;
+        width: 150px;
         margin-top: 10px;
     }
     #allBooks {
-        width: 40%;
+        width: 110px;
         margin-top: 10px;
-        margin-left: 5px;
+        margin-right: 65px;
     }
     
     .manualupload {
