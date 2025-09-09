@@ -153,27 +153,28 @@
         const eachDisplay2 = document.querySelector(".displaybooks2");
         const eachDisplay3 = document.querySelector(".displaybooks3");
         **/
-
-         function Book(title, author, pages, read, id) {
-            if(!new.target) {
-                throw Error("'new' must be used to call constructor")
-            }
-            this.title = title;
-            this.author = author;
-            this.pages = pages;
-            this.read = read;    
-
-            this.id = crypto.randomUUID() + "**";
-            
-            this.info = function() {
-                // alert (`The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}, ${this.id}`);
-                return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}, ${this.id}`;
-            };
-
-          
-         }
- 
          
+         class Book {
+            constructor(title, author, pages, read, id) {
+                if(!new.target) {
+                    throw Error("'new' must be used to call constructor")
+                }
+                this.title = title;
+                this.author = author;
+                this.pages = pages;
+                this.read = read;    
+ 
+                this.id = crypto.randomUUID() + "**";
+                
+                this.info = function() {
+                    // alert (`The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}, ${this.id}`);
+                    return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}, ${this.id}`;
+                };
+ 
+            }
+         }
+         
+ 
 
          //  Book.prototype.readStatus = function () { }
          // this.read status of readtoggle needs to be updated  with prototype function.. later  
