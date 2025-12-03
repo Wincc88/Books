@@ -146,13 +146,9 @@
     <script>
 
         const myLibrary = [];
-         //  let bookstotal = '';
+         
         const eachDisplay = document.querySelector(".displaybooks");
-        /**
-        const eachDisplay1 = document.querySelector(".displaybooks1");
-        const eachDisplay2 = document.querySelector(".displaybooks2");
-        const eachDisplay3 = document.querySelector(".displaybooks3");
-        **/
+        
          
          class Book {
             constructor(title, author, pages, read, id) {
@@ -179,9 +175,6 @@
          //  Book.prototype.readStatus = function () { }
          // this.read status of readtoggle needs to be updated  with prototype function.. later  
          
-            /**  testing
-             const book = new Book('res', 'lidg', '789', '77447');
-             console.log(book.title); **/
             
 
          function addBooktoLibrary(title, author, pages, read, id) {
@@ -193,23 +186,7 @@
             return myLibrary;    //return mylibrary instead of tonew to get all array
 
          }
-            /** rough working code
-            // manually test for bookOne, bookTwo, and bookThree
-
-            const bookOne = addBooktoLibrary("ajy", "me", 294, "read"); // like player - new player, 1 whole book, 2 whole books
-            console.log(myLibrary);
             
-            //console.log(bookOne.info());
-
-           
-            const bookTwo = addBooktoLibrary("leveler midst", "see", 94, "read"); // make this with form input ....
-            console.log(myLibrary);                       //...const book3, 4, 5 etc to make new Book(with title, author ...
-                                                     //...pages in form input information to be submitted by user)
-            
-
-             const bookThree = addBooktoLibrary("aoifify", "tererce", 20, "read"); // like player - new player, 1 whole book, 2 whole books
-             console.log(myLibrary);
-             **/
 
 
        const cardContainer = document.querySelector(".card-containers");
@@ -220,7 +197,7 @@
 
 
        // now display in newdivs
-       const testinghere = document.querySelector(".manualupload");
+       const manualTesting = document.querySelector(".manualupload");
 
      
         
@@ -347,7 +324,7 @@
                 divsfromForm.appendChild(toggleReadUnread);
 
                    // append table to div
-                testinghere.appendChild(divsfromForm);
+                manualTesting.appendChild(divsfromForm);
                     // cardContainer.appendChild(newDiv);   
                
                     
@@ -357,10 +334,14 @@
                 removebook.addEventListener("click", ()=> {
 
                     divsfromForm.remove();
-                    
-                  //  console.log(myLibrary);
-                    myLibrary.pop();           // good
-                  //  console.log(myLibrary);   // good
+
+                   // delete coresponding book from myLibrary array  'myLibrary.pop()' only removes last book added
+
+                    const bookIndex = myLibrary.indexOf(lastBookEntered); 
+                    if (bookIndex > -1) {
+                        myLibrary.splice(bookIndex, 1);
+                    }
+
                 });
        
 
@@ -418,8 +399,8 @@
             return true;
        }
 
-       // take value from form, put in addtolibrary function
-         const titleinform = document.querySelector('#book-title');  // has to be separate to get value .value 
+               // take value from form, put in addtolibrary function
+         const titleinform = document.querySelector('#book-title');  // have to be separate to get value .value 
          const authorinform = document.querySelector('#book-author');
          const pagesinform = document.querySelector('#book-pages');
          const bookIsUnRead = document.querySelector('#unread');
@@ -469,9 +450,12 @@
               //  alert(idvalue);
 
          //cardContainer.textContent = titlevalue; 
+
           addBooktoLibrary(title = titlevalue, author = authorvalue, pages = pagesvalue, read = readtoggle, id = idvalue);
         // addBooktoLibrary(titlevalue, authorvalue, pagesvalue, readtoggle, idvalue); // correct and done here
-           console.log(myLibrary); // should be inside and not outside..shows all current books in library
+
+
+          // console.log(myLibrary); // should be inside and not outside..shows all current books in library
           
 
           
@@ -569,73 +553,7 @@
         displaybtn.addEventListener("click", displayTable);
 
        
-       /**  rough working code
-        // display books in array using loop, but only shows last book in array
-        // loop through the array and display each book in a div
-        // this is not needed anymore, as we have the table to display all books
-
-       function loopArrayDisplaybooks() {
-
-           
-              for(let i = 0; i < myLibrary.length; i++)       {      
-                
-               // "+" is what is needed to show all iteration, if not, it show the last itertion only
-                bookstotal = bookstotal + `book ${i + 1}: Title: ${myLibrary[i].title}, Author: ${myLibrary[i].author}, 
-                              Pages: ${myLibrary[i].pages}, Read: ${myLibrary[i].read}, BookID:${myLibrary[i].id}` +"}";
-                
-
-                
-                //console.log(bookstotal);  // now show each book at pos[0], [1] e.g bookstotal = myLibrary[0] or myLibrary[1]; ... 
-                //alert(bookstotal); //.. i.e if already appears on page or div, does not appear ....
-                                            //..anymore on page or another div ..see alert and also rock paper scisors 
-
-             
-                            
-               
-              //  eachDisplay.textContent = bookstotal;
-
-                let booktally1 = `Title: ${myLibrary[0].title}, Author: ${myLibrary[0].author}, 
-                              Pages: ${myLibrary[0].pages}, Read: ${myLibrary[0].read}, BookID:${myLibrary[0].id}` + "}";
-
-                eachDisplay1.textContent = booktally1; 
-
-                let booktally2 = `Title: ${myLibrary[1].title}, Author: ${myLibrary[1].author}, 
-                              Pages: ${myLibrary[1].pages}, Read: ${myLibrary[1].read}, BookID:${myLibrary[1].id}` + "}";
-                
-                eachDisplay2.textContent = booktally2;
-
-                let booktally3 = `Title: ${myLibrary[2].title}, Author: ${myLibrary[2].author}, 
-                              Pages: ${myLibrary[2].pages}, Read: ${myLibrary[2].read}, BookID:${myLibrary[2].id}` + "}";
-
-         
-                eachDisplay3.textContent = booktally3;
-
-                
-                
-                }; 
-
-              
-                    
-                
-              //  bookstotal = Object.values(myLibrary[0]); // abnormal
-              // const testin = bookstotal.substring(0, bookstotal.indexOf("}")); // good
-
-              
-             //  bookstotal = JSON.stringify(myLibrary);
-    
-               
-             //  eachDisplay1.textContent = bookstotal;
-
-               
-              // bookstotal = JSON.stringify(myLibrary[2]);
-               
-             //  eachDisplay2.textContent = bookstotal;  
-               
-               
-        } 
-        loopArrayDisplaybooks();
-        **/
-
+       
         
         
 
