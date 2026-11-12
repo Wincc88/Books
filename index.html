@@ -163,7 +163,6 @@
                 this.id = crypto.randomUUID() + "**";
                 
                 this.info = function() {
-                    // alert (`The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}, ${this.id}`);
                     return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}, ${this.id}`;
                 };
  
@@ -178,7 +177,8 @@
             
 
          function addBooktoLibrary(title, author, pages, read, id) {
-
+                   
+            //take the parameteres in the function and create a new book object with them, then push to myLibrary array
            let tonew = new Book(title, author, pages, read, id);
             
             myLibrary.push(tonew);
@@ -207,7 +207,7 @@
 
        addbookbutton.addEventListener("click", openForm);
 
- 
+          // defining a fuction on the Book prototype -- it toggles read/unread status of book instances
       Book.prototype.changeReadUnread = function(cell) {
             const readValue = document.querySelector('#read').value;
             const unreadValue = document.querySelector('#unread').value;
@@ -220,7 +220,7 @@
             }
       };
 
-
+         
        function closeForm() {
 
 
